@@ -30,21 +30,12 @@ class BedrockClient:
         return result["embedding"]
 
     def chat(self, prompt: str, max_tokens: int = 2048) -> str:
-        body = json.dumps(
-            {
-                "anthropic_version": "bedrock-2023-05-31",
-                "max_tokens": max_tokens,
-                "messages": [{"role": "user", "content": prompt}],
-            }
-        )
-        response = self._runtime.invoke_model(
+        response = self._runtime.converse(
             modelId=settings.bedrock_chat_model_id,
-            body=body,
-            contentType="application/json",
-            accept="application/json",
+            messages=[{"role": "user", "content": [{"text": prompt}]}],
+            inferenceConfig={"maxTokens": max_tokens},
         )
-        result = json.loads(response["body"].read())
-        return result["content"][0]["text"]
+        return response["output"]["message"]["content"][0]["text"]
 
 
 bedrock_client = BedrockClient()

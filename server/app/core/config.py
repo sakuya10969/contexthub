@@ -16,9 +16,9 @@ class Settings(BaseSettings):
     opensearch_url: str = "http://localhost:9200"
     opensearch_index: str = "rag-documents"
 
-    bedrock_region: str = "ap-northeast-1"
+    bedrock_region: str = "us-east-1"
     bedrock_embed_model_id: str = "amazon.titan-embed-text-v2:0"
-    bedrock_chat_model_id: str = "anthropic.claude-3-5-sonnet-20241022-v2:0"
+    bedrock_chat_model_id: str = "us.amazon.nova-micro-v1:0"
 
 
 settings = Settings()
